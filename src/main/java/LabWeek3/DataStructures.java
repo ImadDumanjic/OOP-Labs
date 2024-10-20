@@ -50,7 +50,6 @@ public class DataStructures {
         System.out.println("All tasks:");
         dataStructures.printTaskDescriptions();
 
-        // Get tasks by status
         System.out.println("Tasks with status IN_PROGRESS:");
         List<TaskItem> inProgressTasks = dataStructures.getByStatus(Status.IN_PROGRESS);
         inProgressTasks.forEach(task -> System.out.println(task.getTaskDescription()));
