@@ -17,8 +17,12 @@ public class Generics{
         System.out.println("Sum of evens: "+sumEven+"\nSum of odds: "+sumOdd);
     }
 
-    public static <T extends Object> ArrayList<T> reverseListOfAnyType(ArrayList<T> lista){
-        java.util.Collections.reverse(lista);
-        return lista;
+    public static <T> ArrayList<T> reverseArrayList (ArrayList<T> array) {
+        ArrayList <T> reversedArrayList = new ArrayList<>();
+
+        for(int i = array.size() - 1; i >= 0; i--){
+            reversedArrayList.add(array.get(i));
+        }
+        return reversedArrayList;
     }
 }

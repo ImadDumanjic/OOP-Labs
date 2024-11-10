@@ -41,7 +41,6 @@ public class Dictionary {
         System.out.println(dictionary.amountOfWords());
         dictionary.add("cembalo", "harpsichord");
         System.out.println(dictionary.amountOfWords());
-
     }
 }
 
