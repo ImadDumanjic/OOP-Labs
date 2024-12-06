@@ -1,4 +1,5 @@
 package LabWeek10;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -41,33 +42,70 @@ class GradeAnalyzer{
         return (double)sum / grades.size();
     }
 
-    public String printSummary(){
-        return "Grade Summary" + "\nGrades: " + this.grades + "\n Average: " + calculateAverage();
+    public void printSummary(){
+        System.out.println("Grade Summary:");
+        System.out.println("Grades: " + this.grades);
+        System.out.println("Average: " + calculateAverage());
     }
 }
 
 class Start{
-    public static void main(String[] args){
+    public static void main(String[] args) throws IllegalAccessException, InvocationTargetException {
         List<Integer> grades = Arrays.asList(6,6,7,8,10);
         Student student = new Student("Imad Dumanjić", "ID2004", grades);
         GradeAnalyzer gradeAnalyzer = new GradeAnalyzer(grades);
 
-        try {
-            System.out.println("Student Info:");
-            Method printStudentInfo = Student.class.getDeclaredMethod("printInfo");
-            String studentInfo = (String) printStudentInfo.invoke(student);
-            System.out.println(studentInfo);
+        System.out.println("Student field names:");
+        Field[] studentFields = student.getClass().getDeclaredFields();
+        for(Field studentField : studentFields){
+            studentField.setAccessible(true);
+            System.out.println("Field name: " + studentField.getName() + ", field Value: " + studentField.get(student));
+        }
 
-            System.out.println("\nAnalyze Grades:");
-            Method calculateAverageMethod = GradeAnalyzer.class.getDeclaredMethod("calculateAverage");
-            double average = (double) calculateAverageMethod.invoke(gradeAnalyzer);
-            System.out.println("Calculated Average: " + average);
+        System.out.println("-------------------------");
 
-            Method printSummaryMethod = GradeAnalyzer.class.getDeclaredMethod("printSummary");
-            printSummaryMethod.invoke(gradeAnalyzer);
+        System.out.println("GradeAnalyzer field names:");
+        Field[] gradeFields = gradeAnalyzer.getClass().getDeclaredFields();
+        for(Field gradeField : gradeFields){
+            gradeField.setAccessible(true);
+            System.out.println("Field name: " + gradeField.getName() + ", field Value: " + gradeField.get(gradeAnalyzer));
+        }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        System.out.println("-------------------------");
+
+        System.out.println("Student methods:");
+        Method[] studentMethods = student.getClass().getDeclaredMethods();
+        for(Method studentMethod : studentMethods){
+            if(studentMethod.getName().equals("printInfo")){
+                studentMethod.setAccessible(true);
+                if(studentMethod.getReturnType() != void.class){
+                    Object value = studentMethod.invoke(student);
+                    System.out.println("Method name: " + studentMethod.getName() + ", method value:\n " + value);
+                }
+                else{
+                    studentMethod.invoke(student);
+                    System.out.println(studentMethod.getName() +  " method invoked.");
+                }
+            }
+        }
+
+        System.out.println("-------------------------");
+
+        System.out.println("Grade Analyzer methods");
+        Method[] gradeMethods = gradeAnalyzer.getClass().getDeclaredMethods();
+        for(Method gradeMethod : gradeMethods){
+            if(gradeMethod.getName().equals("calculateAverage") | gradeMethod.getName().equals("printSummary")){
+                gradeMethod.setAccessible(true);
+                if(gradeMethod.getReturnType() != void.class){
+                    Object result = gradeMethod.invoke(gradeAnalyzer);
+                    System.out.println("Method name: " + gradeMethod.getName() + ", method values: " + result);
+                }
+
+                else{
+                    gradeMethod.invoke(gradeAnalyzer);
+                    System.out.print(gradeMethod.getName() + " method invoked.");
+                }
+            }
         }
     }
 }
