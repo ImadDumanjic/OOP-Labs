@@ -63,15 +63,15 @@ class StudentSystem{
         return Optional.ofNullable(null);
     }
 
-    public Student getHighestGPAStudent() throws EmptyStudentListException{
-        if(students.isEmpty()) {
-            throw new EmptyStudentListException("List of students is empty.");
-        }
+    public Student getHighestGPAStudent() throws EmptyStudentListException {
+            if (students.isEmpty()) {
+                throw new EmptyStudentListException("List of students is empty.");
+            }
 
             Student StudentWithHighestGPA = students.get(0);
 
-            for(Student student : students){
-                if(student.getGPA() > StudentWithHighestGPA.getGPA()){
+            for (Student student : students) {
+                if (student.getGPA() > StudentWithHighestGPA.getGPA()) {
                     StudentWithHighestGPA = student;
                 }
             }
