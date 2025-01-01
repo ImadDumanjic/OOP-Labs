@@ -27,7 +27,6 @@ interface CoffeeBuilder {
     Coffee getCoffee();
 }
 
-
 class EspressoBuilder implements CoffeeBuilder {
     private String type;
     private String size;

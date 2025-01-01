@@ -7,14 +7,14 @@ interface TextFormatter{
 class UpperCaseFormatter implements TextFormatter {
     @Override
     public String formatText(String text) {
-        return text.toUpperCase(); // Convert text to uppercase
+        return text.toUpperCase();
     }
 }
 
 class LowerCaseFormatter implements TextFormatter {
     @Override
     public String formatText(String text) {
-        return text.toLowerCase(); // Convert text to lowercase
+        return text.toLowerCase();
     }
 }
 

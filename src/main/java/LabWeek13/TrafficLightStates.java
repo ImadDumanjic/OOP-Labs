@@ -20,7 +20,7 @@ class RedLightState implements TrafficLightState {
 
     @Override
     public void transitionToYellow(TrafficLightContext context) {
-        System.out.println("Cannot transition directly from Red to Yellow.");
+        System.out.println("Transitioning directly from Red to Yellow.");
     }
 }
 
@@ -33,7 +33,7 @@ class YellowLightState implements TrafficLightState {
 
     @Override
     public void transitionToGreen(TrafficLightContext context) {
-        System.out.println("Cannot transition directly from Yellow to Green.");
+        System.out.println("Transitioning directly from Yellow to Green.");
     }
 
     @Override
